@@ -104,9 +104,7 @@ const getAllProperties = function(options, limit = 10) {
       queryString += `WHERE cost_per_night <= 
       $${queryParams.length} AND cost_per_night >= $${queryParams.length - 1}`;
     } else {
-      queryString += `AND cost_per_night <= $${
-        queryParams.length
-      } AND cost_per_night >= $${queryParams.length - 1} `;
+      queryString += `AND cost_per_night <= $${queryParams.length} AND cost_per_night >= $${queryParams.length - 1}`;
     }
   }
 
@@ -158,7 +156,7 @@ const addProperty = function(property) {
   INSERT INTO properties (owner_id,title,description,thumbnail_photo_url,cover_photo_url,cost_per_night,street,city,province,post_code,country,parking_spaces,number_of_bathrooms,number_of_bedrooms)
   VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)
   RETURNING *;
-  `, [owner_id, title, description, thumbnail_photo_url, cover_photo_url, cost_per_night, street, city, province, post_code, country, parking_spaces, number_of_bathrooms, number_of_bedrooms])
+  `, [owner_id, title, description, thumbnail_photo_url, cover_photo_url, cost_per_night * 100, street, city, province, post_code, country, parking_spaces, number_of_bathrooms, number_of_bedrooms])
     .then(res => res.rows);
 };
 exports.addProperty = addProperty;
